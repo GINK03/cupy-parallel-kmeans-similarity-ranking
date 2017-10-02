@@ -63,3 +63,27 @@ now iter 9
 elapsed 304.03318667411804 #<- 5分かかっている
 ```
 
+### GPU(Nvidia GeForce GTX1700)で実行
+cupyで実行します  
+cupyで実行する際には、Ryzenのコアは1個に限定される様子が観測できます  
+<p align="center">
+  <img width="600px" src="https://user-images.githubusercontent.com/4949982/31068350-928aad4e-a792-11e7-9ef9-6027b0059237.png">
+</p>
+<div align="center"> 図2. cupyのCPUの使用率 </div>
+
+その代わり、GPUはフル回転している様子が観測できます  
+
+```console
+$ python3 bench.py --gpu                                                                                          
+now iter 0                                      
+now iter 1                                      
+now iter 2                                      
+now iter 3
+now iter 4
+now iter 5
+now iter 6
+now iter 7
+now iter 8
+now iter 9
+elapsed 102.1835367679596 # <- 100秒程度に短縮できた
+```
