@@ -31,6 +31,7 @@ htopでCPUの使用率を見ると、16スレッド全て使い切っていま�
   <img width="600px" src="https://user-images.githubusercontent.com/4949982/31068076-44e3e8d6-a791-11e7-86f7-52beded4b48e.png">
 </p>
 <div align="center"> 図.1 numpyのCPUの使用率 </div>
+
 ```cosnole
 $ python3 bench.py --cpu
 now iter 0
@@ -43,5 +44,6 @@ now iter 6
 now iter 7
 now iter 8
 now iter 9
-elapsed 304.03318667411804
+elapsed 304.03318667411804 #<- 5分かかっている
 ```
+
