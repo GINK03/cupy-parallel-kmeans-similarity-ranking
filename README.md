@@ -77,6 +77,7 @@ cupyで実行する際には、Ryzenのコアは1個に限定される様子が�
   <img width="600px" src="https://user-images.githubusercontent.com/4949982/31068402-ce71b94c-a792-11e7-8173-1c7a335bf137.png">
 </p>
 <div align="center"> 図3. CPUの使用率の様子 </div>
+
 ```console
 $ python3 bench.py --gpu                                                                                          
 now iter 0                                      
