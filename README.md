@@ -25,6 +25,12 @@ xp.random.randn((10000, 10000))
 ### CPU(Ryzen 1700X)で実行
 numpyもマルチプロセスで動作するので、Ryzenのような多コアで計算すると、高速に計算することが期待できます　　
 
+htopでCPUの使用率を見ると、16スレッド全て使い切っています.numpy優秀ですね  
+
+<p align="center">
+  <img width="600px" src="https://user-images.githubusercontent.com/4949982/31068076-44e3e8d6-a791-11e7-86f7-52beded4b48e.png">
+</p>
+<div align="center"> 図.1 numpyのCPUの使用率 </div>
 ```cosnole
 $ python3 bench.py --cpu
 now iter 0
