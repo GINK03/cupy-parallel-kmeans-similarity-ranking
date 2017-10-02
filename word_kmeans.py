@@ -10,30 +10,26 @@ index_meta = pickle.loads( open('make_word_vector/index_meta.pkl', 'rb').read() 
 arrays = []
 word_index = {}
 index_word = {}
-for index, meta in index_meta.items():
+for index, meta in sorted(index_meta.items(), key=lambda x:x[0]):
   #print( index )
   arrays.append( meta['vec'] )
   word = meta['word']
   word_index[word] = index
   index_word[index] = word
 
-if '--cpu' in sys.argv:
-  xp = np
-if '--gpu' in sys.argv:
-  xp = cp
 
-x_all = xp.array(arrays) 
-x_allnorm = xp.linalg.norm(x_all, axis=(1,) )
+x_all = cp.array(arrays) 
+x_allnorm = cp.linalg.norm(x_all, axis=(1,) )
 
-clusters =  [xp.random.randn(100) for n in range(100)] 
-print( clusters )
+clusters =  [cp.random.randn(100) for n in range(100)] 
+print( 'initial', clusters )
 
 rams = None
-for it in range(100):
+for it in range(400):
   cossimsall = []
   for e, cluster in enumerate(clusters):
-    print( e )
-    cluster_norm = xp.linalg.norm(cluster) 
+    #print( e )
+    cluster_norm = cp.linalg.norm(cluster) 
     cluster_all = cluster * x_all
     norm = cluster_norm * x_allnorm
     invnorm = norm**-1 
@@ -43,16 +39,21 @@ for it in range(100):
 
   cossimsall = [ c.tolist() for c in cossimsall ]
   cc = np.array( cossimsall )
-  print( cc.shape )
-  print( cc.T )
+  #print( cc.shape )
+  #print( cc.T )
   ams = np.argmax(cc.T, axis=1)
   if rams is not None and np.array_equal(rams,ams):
     print( ams )
     break
-  rams = ams
-  #print( ams )
 
-  # 重心の計算
+  if rams is not None:
+    print('differ', it, (ams - rams).tolist()) 
+  print('now iter', it,  ams )
+  print('old ams', it, rams )
+
+  rams = ams
+
+  # 重心の再計算
   am_vs = {}
   for e, am in enumerate(ams):
     #print(e, am) 
@@ -65,3 +66,5 @@ for it in range(100):
     means.append( cp.mean(cp.array(vs), axis=0) )
   clusters = means
 
+ams = [ (en, ms) for en, ms in enumerate(ams.tolist()) ]
+open('ams.json', 'w').write( json.dumps(ams) )

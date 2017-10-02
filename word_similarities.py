@@ -16,24 +16,15 @@ for index, meta in index_meta.items():
   word_index[word] = index
   index_word[index] = word
 
-if '--cpu' in sys.argv:
-  xp = np
-if '--gpu' in sys.argv:
-  xp = cp
 
-bench = False
-if '--bench' in sys.argv:
-  bench = True 
-
-x_all = xp.array(arrays) 
-x_allnorm = xp.linalg.norm(x_all, axis=(1,) )
-
+x_all = cp.array(arrays) 
+x_allnorm = cp.linalg.norm(x_all, axis=(1,) )
 start = time.time()
 for e, (word, index) in enumerate(word_index.items()):
   print( word )
-  x_word = xp.array( arrays[index] )
+  x_word = cp.array( arrays[index] )
   x_wa = (x_word * x_all).sum(axis=1)
-  x_wordnorm = xp.linalg.norm(x_word)
+  x_wordnorm = cp.linalg.norm(x_word)
   norm = x_wordnorm * x_allnorm
   invnorm = norm**-1
 
@@ -44,5 +35,4 @@ for e, (word, index) in enumerate(word_index.items()):
   if e > 10 and bench:
     break
 
-    genage = name.split('/').pop().split('_')[1]
 print('elapsed', time.time() - start )
