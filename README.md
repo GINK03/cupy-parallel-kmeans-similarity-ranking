@@ -107,11 +107,22 @@ word2vecやfastTextでベクトル化した単語について、コサイン類�
 1. cupyを使えるところには使うことで高速化する
 2. 距離関数をcosine similarityを使うことで、単語の意味の近い集合を作る
 
-## コード
+## コード&パラメータ
 [https://github.com/GINK03/cupy-parallel-kmeans-similarity-ranking:cite:embed]
+
+gpu_kmeans.pyという実行ファイルの先頭部分に入力ファイル、クラス数、入力ベクトル数、最大イテレーション数などを定義することができます
+
+```python
+# here is defines                               
+vector_size = 100 # 入力ベクトルサイズ
+cluster_num = 200 # クラス数             
+max_iter = 120 # 最大イテレーション数                     
+input_file = './make_word_vector/index_meta.pkl' # 入力ファイル
+```
 
 ## 実行
 ```console
 $ python3 gpu_kmeans.py
 ```
+出力として各クラスの所属が記載されたams.jsonというファイルが出力されます
 
