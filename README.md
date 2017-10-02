@@ -7,7 +7,8 @@ CPUでやった場合のkmeansはscikit-learnなどを使えるのですが、�
 十分な精度やイテレーションを繰り返した上で、停止できるように設計します  
 
 ## Cupy
-Cupyはchainerのバックエンドで用いられているnumpyの一部語感ライブラリであり、cupyはこの行列の計算をGPUで行うことができます。　　
+Cupyはchainerのバックエンドで用いられているnumpyの一部語感ライブラリであり、cupyはこの行列の計算をGPUで行うことができます  
+
 numpyの機能で高機能のものは、まだ使えない面も多いですが、最初にnumpy, cupy双方コンパチブルに動作させるようなことができる場合、CPUで計算させたほうがいい場合、
 GPUで計算させたほうがいい場合、双方の最適なコードを記述することができます　
 
@@ -72,7 +73,10 @@ cupyで実行する際には、Ryzenのコアは1個に限定される様子が�
 <div align="center"> 図2. cupyのCPUの使用率 </div>
 
 その代わり、GPUはフル回転している様子が観測できます  
-
+<p align="center">
+  <img width="600px" src="https://user-images.githubusercontent.com/4949982/31068402-ce71b94c-a792-11e7-8173-1c7a335bf137.png">
+</p>
+<div align="center"> 図3. CPUの使用率の様子 </div>
 ```console
 $ python3 bench.py --gpu                                                                                          
 now iter 0                                      
@@ -87,3 +91,6 @@ now iter 8
 now iter 9
 elapsed 102.1835367679596 # <- 100秒程度に短縮できた
 ```
+Ryzenと比較しても3倍程度早くなることがわかりました  
+CPUはSingle Threadで動作するので、他の分析オペレーションを回すことができます  
+
