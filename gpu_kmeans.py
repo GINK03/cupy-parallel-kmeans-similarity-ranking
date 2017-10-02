@@ -8,9 +8,10 @@ import pickle
 # here is defines 
 vector_size = 100
 cluster_num = 200
-max_iter = 120
+max_iter = 12
+input_file = './make_word_vector/index_meta.pkl'
 
-index_meta = pickle.loads( open('make_word_vector/index_meta.pkl', 'rb').read() )
+index_meta = pickle.loads( open(input_file, 'rb').read() )
 
 arrays = []
 word_index = {}
@@ -21,7 +22,6 @@ for index, meta in sorted(index_meta.items(), key=lambda x:x[0]):
   word = meta['word']
   word_index[word] = index
   index_word[index] = word
-
 
 x_all = cp.array(arrays) 
 x_allnorm = cp.linalg.norm(x_all, axis=(1,) )
@@ -68,6 +68,13 @@ for it in range(max_iter):
     means.append( cp.mean(cp.array(vs), axis=0) )
   clusters = means
 
-ams = [ (en, ms) for en, ms in enumerate(ams.tolist()) ]
+ams = [ (index, category) for index, category in enumerate(ams.tolist()) ]
 import json
-open('ams.json', 'w').write( json.dumps(ams) )
+import copy
+
+index_result = copy.copy( index_meta )
+for index, category in ams:
+  index_result[index]['category'] = category
+  del index_result[index]['vec']
+
+open('index_result.json', 'w').write( json.dumps( index_result, indent=2, ensure_ascii=False ) )
