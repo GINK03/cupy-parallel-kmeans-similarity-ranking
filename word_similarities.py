@@ -44,4 +44,5 @@ for e, (word, index) in enumerate(word_index.items()):
   if e > 10 and bench:
     break
 
+    genage = name.split('/').pop().split('_')[1]
 print('elapsed', time.time() - start )
