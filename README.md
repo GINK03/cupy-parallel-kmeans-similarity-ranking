@@ -120,6 +120,17 @@ max_iter = 120 # 最大イテレーション数
 input_file = './make_word_vector/index_meta.pkl' # 入力ファイル
 ```
 
+## 入力ファイルのフォーマット
+入力ファイルは、pickle形式でシリアライズされた以下のようなdict型のフォーマットになります  
+```python
+input_raw = { 
+  0 : {'vec':[0.1, 0.2, ... 0.9], 'word':'something'},
+  1 : {'vec':[0.2, 0.3, ... 0.9], 'word':'anything'},
+  ....
+}
+```
+0,1...とインデックスが振られているのは、理由があって、numpy, cupy形式のアレーはその構造上、順序に意味があるのでこのようにしています  
+
 ## 実行
 ```console
 $ python3 gpu_kmeans.py
