@@ -11,8 +11,10 @@ Cupyはchainerのバックエンドで用いられているnumpyの一部語感�
 numpyの機能で高機能のものは、まだ使えない面も多いですが、最初にnumpy, cupy双方コンパチブルに動作させるようなことができる場合、CPUで計算させたほうがいい場合、
 GPUで計算させたほうがいい場合、双方の最適なコードを記述することができます　
 
-四則演算と、ノルムと、dot積などよく使う系のオペレーションを入れてみました  
+四則演算と、ノルムと、dot積などよく使う系のオペレーションを10回, 10000x10000の行列で計算するベンチマークを入れてみました  
 ```python
+import sys
+import time
 import numpy as np
 import cupy as cp
 
@@ -20,8 +22,22 @@ xp = np
 if '--gpu' in sys.argv:
   xp = cp
   
-xp.random.randn((10000, 10000))
+b = xp.random.randn(10000, 10000)
+
+start = time.time()
+for i in range(10):
+  m = b*b
+  d = b - b
+  a = b + b
+  de = b/b
+  xp.dot(b, b)
+  xp.linalg.norm(b)
+  inv = b**-1
+  print( 'now iter', i )
+
+print('elapsed', time.time() - start )
 ```
+
 ### CPU(Ryzen 1700X)で実行
 numpyもマルチプロセスで動作するので、Ryzenのような多コアで計算すると、高速に計算することが期待できます　　
 
