@@ -135,5 +135,26 @@ input_raw = {
 ```console
 $ python3 gpu_kmeans.py
 ```
-出力として各クラスの所属が記載されたams.jsonというファイルが出力されます
+出力として各クラスの所属が記載されたindex_result.jsonというファイルが出力されます
 
+```json
+  "167": {
+    "word": "世界",
+    "category": 182
+  },
+  "168": {
+    "word": "向け",
+    "category": 25
+  },
+  "169": {
+    "word": "企業",
+    "category": 110
+  },
+  "170": {
+    "word": "感じ",
+    "category": 169
+  },
+  "171": {
+    "word": "行わ",
+    "category": 126
+```
