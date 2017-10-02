@@ -108,6 +108,10 @@ word2vecやfastTextでベクトル化した単語について、コサイン類�
 2. 距離関数をcosine similarityを使うことで、単語の意味の近い集合を作る
 
 ## コード
+[https://github.com/GINK03/cupy-parallel-kmeans-similarity-ranking:cite:embed]
 
 ## 実行
+```console
+$ python3 gpu_kmeans.py
+```
 
